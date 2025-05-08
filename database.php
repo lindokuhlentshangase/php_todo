@@ -34,6 +34,19 @@ if (isset($_POST['delete_task'])){
     header('Location: index.php');
 }
 
+// if (isset($_POST['update_task'])){
+//     $id = $_POST['task_id'];
+//     $taskName = $_POST['task_name'];
+
+
+//     $stmt = $conn->prepare("UPDATE tasks SET name = ? WHERE id = ?");
+//     $stmt->bind_param("i", $taskName, $id);
+//     $stmt->execute();
+
+//     header('Location: index.php');
+   
+// }
+
 $tasks = mysqli_query($conn,"SELECT * FROM  tasks");
 
 

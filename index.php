@@ -21,7 +21,7 @@
         
         <form action="index.php" method="POST" class="text-center  " >
 
-        <input type="text" name="task" placeholder="Add new task" class="border p-2  text-sm w-96  " >
+        <input type="text" name="task" placeholder="Add new task" class="border p-2  text-sm w-96" required >
         <button type="submit" name="submit" class="border p-2  w-28 rounded-md bg-white"> Add</button>
         
 
@@ -47,6 +47,7 @@ while ($row = mysqli_fetch_array($tasks)){
 <td class="px-6 py-4 border-b border-gray-200"><form action="index.php" method="POST" style="display:inline;">
   <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
   <button type="submit" name="delete_task" class="border p-2 bg-white w-24 rounded-md">Delete</button>
+  <button type="submit" name="update_task" class="border p-2 bg-white w-24 rounded-md">Update</button>
 </form>
 </td>
 </tr><?php }?>
