@@ -1,6 +1,9 @@
 <?php include("database.php"); ?>
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,20 +40,39 @@
   </thead>
   <tbody>
    
-    <?php 
-while ($row = mysqli_fetch_array($tasks)){
+  <?php 
+while ($row = mysqli_fetch_array($tasks)) {
+    // Checking if this row is being edited
+    $isEditing = $edit_id == $row['id'];
+?>
+<tr class="hover:bg-gray-50">
+    <td class="px-6 py-4 border-b border-gray-200"><?php echo $row['id']; ?></td>
+    
+    <td class="px-6 py-4 border-b border-gray-200">
+        <?php if ($isEditing): ?>
+            <form action="index.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                <input type="text" name="updated_task" value="<?php echo htmlspecialchars($row['task']); ?>" class="border p-1 w-full">
+                <button type="submit" name="save_task" class="border p-1 bg-white rounded">Save</button>
+            </form>
+        <?php else: ?>
+            <?php echo htmlspecialchars($row['task']); ?>
+        <?php endif; ?>
+    </td>
+    
+    <td class="px-6 py-4 border-b border-gray-200">
+        <form action="index.php" method="POST" style="display:inline;">
+            <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
+            <button type="submit" name="delete_task" class="border p-2 bg-white w-24 rounded-md">Delete</button>
+        </form>
+        <form action="index.php" method="POST" style="display:inline;">
+            <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
+            <button type="submit" class="border p-2 bg-white w-24 rounded-md">Update</button>
+        </form>
+    </td>
+</tr>
+<?php } ?>
 
-
-?> <tr class="hover:bg-gray-50">
-<td class="px-6 py-4 border-b border-gray-200"><?php echo $row['id']; ?></td>
-<td class="px-6 py-4 border-b border-gray-200"><?php echo $row['task']; ?></td>
-<td class="px-6 py-4 border-b border-gray-200"><form action="index.php" method="POST" style="display:inline;">
-  <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
-  <button type="submit" name="delete_task" class="border p-2 bg-white w-24 rounded-md">Delete</button>
-  <button type="submit" name="update_task" class="border p-2 bg-white w-24 rounded-md">Update</button>
-</form>
-</td>
-</tr><?php }?>
   </tbody>
 </table>
 
